@@ -1,0 +1,22 @@
+{
+  "name": "imgur-info",
+  "description": "Imgur resolver without api code",
+  "keywords": [
+    "imgur",
+    "album"
+  ],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TimeForANinja/node-imgur-info.git"
+  },
+  "author": "Tobias Kutscha (https://github.com/TimeForANinja)",
+  "main": "./lib/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=0.12"
+  },
+  "license": "MIT"
+}
