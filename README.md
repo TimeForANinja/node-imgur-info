@@ -15,11 +15,14 @@ imgur_info('https://imgur.com/a/some_album', function(err, info) {
 
 
 # API
-### imgur_info(url, [callback])
+### imgur_info(ref, [callback])
 
 Attempts to resolve the given playlist id
 
-* `url`
+* `ref`
+    * ether a direct link like `https://imgur.com/gallery/no3t9ib`
+		* just the page `/gallery/no3t9ib`
+		* just the id `no3t9ib`
 * `callback(err, result)`
     * function
     * getting fired after the request is done

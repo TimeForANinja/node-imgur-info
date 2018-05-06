@@ -5,15 +5,24 @@
     "imgur",
     "album"
   ],
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/TimeForANinja/node-imgur-info.git"
   },
   "author": "Tobias Kutscha (https://github.com/TimeForANinja)",
   "main": "./lib/main.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -t 16000 test/*-test.js"
+  },
+  "devDependencies": {
+    "assert-diff": "^1.2.4",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.0.0",
+    "nock": "^9.1.5"
   },
   "engines": {
     "node": ">=0.12"
