@@ -16,16 +16,20 @@
     "lib"
   ],
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -t 16000 test/*-test.js"
+    "test": "npm run lint && npm run istanbul",
+    "istanbul": "istanbul cover node_modules/mocha/bin/_mocha -- -t 16000 test/*-test.js",
+    "lint": "eslint ./",
+    "lint:fix": "eslint --fix ./"
   },
   "devDependencies": {
+    "eslint": "^4.10.0",
     "assert-diff": "^1.2.4",
     "istanbul": "^0.4.5",
     "mocha": "^5.0.0",
     "nock": "^9.1.5"
   },
   "engines": {
-    "node": ">=0.12"
+    "node": ">=6"
   },
   "license": "MIT"
 }
