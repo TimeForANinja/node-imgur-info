@@ -1,5 +1,7 @@
 # node-imgur-info
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/TimeForANinja/node-imgur-info.svg)](https://greenkeeper.io/)
+
 Simple js only module to resolve Imgur albums without using a token
 
 # Usage
