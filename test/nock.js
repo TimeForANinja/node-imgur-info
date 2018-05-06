@@ -1,8 +1,9 @@
-const url  = require('url');
+/* global before, after */
+const url = require('url');
 const path = require('path');
 const nock = require('nock');
 
-const IMGUR_HOST   = 'https://imgur.com';
+const IMGUR_HOST = 'https://imgur.com';
 const GALLERY_PATH = '/gallery/';
 
 before(() => { nock.disableNetConnect(); });
@@ -12,7 +13,7 @@ exports = module.exports = (link, opts) => {
   var scopes = [];
   var urlParsed = url.parse(link);
 
-  if(opts.type === 'gallery') {
+  if (opts.type === 'gallery') {
     scopes.push(
       nock(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
@@ -20,28 +21,28 @@ exports = module.exports = (link, opts) => {
     );
   }
 
-  if(opts.error) {
+  if (opts.error) {
     scopes.push(
       nock(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
         .reply(400)
     );
   }
-  if(opts.halfJSON) {
+  if (opts.halfJSON) {
     scopes.push(
       nock(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
         .reply(opts.statusCode || 200, 'HELLO WORLD,"adConfig":{')
     );
   }
-  if(opts.invalidJSON) {
+  if (opts.invalidJSON) {
     scopes.push(
       nock(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
         .reply(opts.statusCode || 200, 'image : { HELLO WORLD,"adConfig":{')
     );
   }
-  if(opts.noCFG) {
+  if (opts.noCFG) {
     scopes.push(
       nock(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
@@ -50,7 +51,7 @@ exports = module.exports = (link, opts) => {
   }
 
   return {
-    ifError: (err) => {if(err) nock.cleanAll()},
-    done: () => scopes.forEach(scope => scope.done())
-  }
-}
+    ifError: err => { if (err) nock.cleanAll(); },
+    done: () => scopes.forEach(scope => scope.done()),
+  };
+};
