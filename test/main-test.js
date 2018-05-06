@@ -1,23 +1,23 @@
 /* global describe, it */
-const imgur = require('..');
-const nock = require('./nock');
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert-diff');
+const IMGUR = require('..');
+const NOCK = require('./nock');
+const FS = require('fs');
+const PATH = require('path');
+const ASSERT = require('assert-diff');
 
 describe('main()', () => {
   it('regular usage', done => {
-    fs.readFile(path.resolve(__dirname, 'files/parsed.json'), (err, data) => {
-      assert.ifError(err);
+    FS.readFile(PATH.resolve(__dirname, 'files/parsed.json'), (err, data) => {
+      ASSERT.ifError(err);
       const dataOut = JSON.parse(data);
-      let plistID = 'no3t9ib';
-      let scope = nock(plistID, {
+      const plistID = 'no3t9ib';
+      const scope = NOCK(plistID, {
         type: 'gallery',
       });
-      imgur(`https://imgur.com/gallery/${plistID}`, (errIn, dataIn) => {
+      IMGUR(`https://imgur.com/gallery/${plistID}`, (errIn, dataIn) => {
         scope.ifError(errIn);
-        assert.ifError(errIn);
-        assert.deepEqual(dataIn, dataOut);
+        ASSERT.ifError(errIn);
+        ASSERT.deepEqual(dataIn, dataOut);
         scope.done();
         done();
       });
@@ -25,94 +25,94 @@ describe('main()', () => {
   });
 
   it('regular usage promise', done => {
-    fs.readFile(path.resolve(__dirname, 'files/parsed.json'), (err, data) => {
-      assert.ifError(err);
+    FS.readFile(PATH.resolve(__dirname, 'files/parsed.json'), (err, data) => {
+      ASSERT.ifError(err);
       const dataOut = JSON.parse(data);
-      let plistID = 'no3t9ib';
-      let scope = nock(plistID, {
+      const plistID = 'no3t9ib';
+      const scope = NOCK(plistID, {
         type: 'gallery',
       });
-      imgur(`https://imgur.com/gallery/${plistID}`).then(dataIn => {
-        assert.deepEqual(dataIn, dataOut);
+      IMGUR(`https://imgur.com/gallery/${plistID}`).then(dataIn => {
+        ASSERT.deepEqual(dataIn, dataOut);
         scope.done();
         done();
       }).catch(errIn => {
         scope.ifError(errIn);
-        assert.ifError(errIn);
+        ASSERT.ifError(errIn);
       });
     });
   });
 
   it('should faild promise', done => {
-    let plistID = 'no3t9ib';
-    let scope = nock(plistID, {
+    const plistID = 'no3t9ib';
+    const scope = NOCK(plistID, {
       error: true,
     });
-    imgur(`https://imgur.com/gallery/${plistID}`).catch(err => {
-      assert.equal(err.message, 'statusCode: 400');
+    IMGUR(`https://imgur.com/gallery/${plistID}`).catch(err => {
+      ASSERT.equal(err.message, 'statusCode: 400');
       scope.done();
       done();
     });
   });
 
   it('half json', done => {
-    let plistID = 'no3t9ib';
-    let scope = nock(plistID, {
+    const plistID = 'no3t9ib';
+    const scope = NOCK(plistID, {
       halfJSON: true,
     });
-    imgur(`https://imgur.com/gallery/${plistID}`).catch(err => {
-      assert.equal(err.message, 'unable to find config');
+    IMGUR(`https://imgur.com/gallery/${plistID}`).catch(err => {
+      ASSERT.equal(err.message, 'unable to find config');
       scope.done();
       done();
     });
   });
 
   it('invalid json', done => {
-    let plistID = 'no3t9ib';
-    let scope = nock(plistID, {
+    const plistID = 'no3t9ib';
+    const scope = NOCK(plistID, {
       invalidJSON: true,
     });
-    imgur(`https://imgur.com/gallery/${plistID}`).catch(err => {
-      assert.equal(err.message, 'failed to parse config');
+    IMGUR(`https://imgur.com/gallery/${plistID}`).catch(err => {
+      ASSERT.equal(err.message, 'failed to parse config');
       scope.done();
       done();
     });
   });
 
   it('no CFG', done => {
-    let plistID = 'no3t9ib';
-    let scope = nock(plistID, {
+    const plistID = 'no3t9ib';
+    const scope = NOCK(plistID, {
       noCFG: true,
     });
-    imgur(`https://imgur.com/gallery/${plistID}`).catch(err => {
-      assert.equal(err.message, 'unable to find config');
+    IMGUR(`https://imgur.com/gallery/${plistID}`).catch(err => {
+      ASSERT.equal(err.message, 'unable to find config');
       scope.done();
       done();
     });
   });
 
   it('shortened id', done => {
-    fs.readFile(path.resolve(__dirname, 'files/parsed.json'), (err, data) => {
-      assert.ifError(err);
+    FS.readFile(PATH.resolve(__dirname, 'files/parsed.json'), (err, data) => {
+      ASSERT.ifError(err);
       const dataOut = JSON.parse(data);
-      let plistID = 'no3t9ib';
-      let scope = nock(plistID, {
+      const plistID = 'no3t9ib';
+      const scope = NOCK(plistID, {
         type: 'gallery',
       });
-      imgur(plistID).then(dataIn => {
-        assert.deepEqual(dataIn, dataOut);
+      IMGUR(plistID).then(dataIn => {
+        ASSERT.deepEqual(dataIn, dataOut);
         scope.done();
         done();
       }).catch(errIn => {
         scope.ifError(errIn);
-        assert.ifError(errIn);
+        ASSERT.ifError(errIn);
       });
     });
   });
 
   it('invalid id', done => {
-    imgur('https://imgur.com/gallerya/no3t9ib').catch(err => {
-      assert.equal(err.message, 'invalid id');
+    IMGUR('https://imgur.com/gallerya/no3t9ib').catch(err => {
+      ASSERT.equal(err.message, 'invalid id');
       done();
     });
   });
