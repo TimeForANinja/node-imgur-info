@@ -17,7 +17,7 @@ exports = module.exports = (link, opts) => {
     scopes.push(
       NOCK(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
-        .replyWithFile(opts.statusCode || 200, PATH.resolve(__dirname, 'files/page1.html'))
+        .replyWithFile(opts.statusCode || 200, PATH.resolve(__dirname, 'files/page1.html')),
     );
   }
 
@@ -25,28 +25,28 @@ exports = module.exports = (link, opts) => {
     scopes.push(
       NOCK(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
-        .reply(400)
+        .reply(400),
     );
   }
   if (opts.halfJSON) {
     scopes.push(
       NOCK(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
-        .reply(opts.statusCode || 200, 'HELLO WORLD,"adConfig":{')
+        .reply(opts.statusCode || 200, 'HELLO WORLD,"adConfig":{'),
     );
   }
   if (opts.invalidJSON) {
     scopes.push(
       NOCK(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
-        .reply(opts.statusCode || 200, 'image : { HELLO WORLD,"adConfig":{')
+        .reply(opts.statusCode || 200, 'image : { HELLO WORLD,"adConfig":{'),
     );
   }
   if (opts.noCFG) {
     scopes.push(
       NOCK(IMGUR_HOST)
         .get(GALLERY_PATH + urlParsed.path)
-        .reply(opts.statusCode || 200, 'HELLO WORLD')
+        .reply(opts.statusCode || 200, 'HELLO WORLD'),
     );
   }
 
